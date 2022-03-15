@@ -26,9 +26,8 @@ class categorie:
             fichiercsv.write("title, category, product_description, universal_product_code, price_including_tax, price_excluding_tax,"
                             "number_available, review_rating, product_page_url, image_url: \n")
             for livre in self.livres:
-                writer.writerow([livre.title, livre.category, livre.product_description, livre.universal_product_code, livre.price_including_tax,
-                                livre.price_excluding_tax, livre.number_available, livre.review_rating, livre.product_page_url, livre.image_url])
-
+                 writer.writerow([livre.title, livre.category, livre.product_description, livre.universal_product_code, livre.price_including_tax,
+                 livre.price_excluding_tax, livre.number_available, livre.review_rating, livre.product_page_url,   livre.image_url]) 
     # Créer un dossier images
     def telecharger_images(self):
         path = "images"
