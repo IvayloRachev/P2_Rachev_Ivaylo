@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-from categorie import categorie
-from livre import livre
+from P2_02_categorie import categorie
+from P2_01_livre import livre
 
 main_page = "https://books.toscrape.com/"
 

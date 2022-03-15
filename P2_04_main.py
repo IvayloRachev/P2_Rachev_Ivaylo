@@ -1,4 +1,4 @@
-from scrape_livres import scrapeLivres
+from P2_03_scrape_livres import scrapeLivres
 
 if __name__ == '__main__':
     scraper = scrapeLivres()
