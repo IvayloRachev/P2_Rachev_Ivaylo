@@ -22,21 +22,21 @@ class scrapeLivres:
         prendre_ul = prendre_premier_ul.find("ul")
         liste_livres_categorie = prendre_ul.find_all("li")
         for li in liste_livres_categorie:
-            categorie_nom_dans_lien = li.find("a")["href"].split("/")[3]
+            categorie_nom_dans_lien = li.find("a")["href"].split('/')[3]
             categories = categorie(categorie_nom_dans_lien)
             self.liste_categories.append(categories)
 
     def prendre_tous_livres(self):
         for categorie in self.liste_categories:
             soup = prendre_url_requests("https://books.toscrape.com/catalogue/category/books/" + categorie.nom + "/index.html")
-            page = (soup.find("li", {"class": "current"}))
+            page = (soup.find("li", {"class" : "current"}))
             if page is None:
                 tout_h3 = soup.find_all("h3")
                 for h3 in tout_h3:
                     lien_vers_livres = h3.select("a")
                     for a in lien_vers_livres:
                         lien_vers_livre = a["href"].strip("../../../")
-                        url_livre = main_page + "catalogue/" + lien_vers_livre
+                        url_livre = main_page + 'catalogue/' + lien_vers_livre
                         categorie.ajout_livres(self.prendre_livre_infos(url_livre))
             else:
                 page = str(page)
@@ -53,14 +53,14 @@ class scrapeLivres:
                             lien_vers_livres = h3.select("a")
                             for a in lien_vers_livres:
                                 lien_vers_livre = a["href"].strip("../../../")
-                                url_livre = main_page + "catalogue/" + lien_vers_livre
+                                url_livre = main_page + 'catalogue/' + lien_vers_livre
                                 categorie.ajout_livre(self.prendre_livre_infos(url_livre))
 
     def prendre_livre_infos(self, url_livre):
         soup = prendre_url_requests(url_livre)
         title_livre = soup.find("h1").text
-
-        ul_categorie = soup.select("ul.breadcrump")
+        
+        ul_categorie = soup.select('ul.breadcrumb')
         for element in ul_categorie:
             categorie_livre = element.select("li")[2].text.strip()
 
@@ -79,9 +79,9 @@ class scrapeLivres:
                 number_available = info.select("tr > td")[5].text
 
             details_livre = livre(title_livre, categorie_livre, description_livre, universal_product_code, price_including_tax,
-                                 price_excluding_tax, number_available, review_rating, url_livre, image_src)
+            price_excluding_tax, number_available, review_rating, url_livre, image_src)  
             return(details_livre)
-    
+
     def creer_livres_csv(self):
         for categorie in self.liste_categories:
             categorie.creer_csv()
@@ -89,3 +89,4 @@ class scrapeLivres:
     def telecharger_images_livres(self):
         for categorie in self.liste_categories:
             categorie.telecharger_image()
+
